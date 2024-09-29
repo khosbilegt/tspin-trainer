@@ -12,16 +12,18 @@ import {
   Tetrimino,
   ZBlock,
 } from "./models";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 const initialField = Array.from({ length: 10 }, () =>
   Array.from({ length: 20 }, () => 0x000000)
 );
 
 function Tetris() {
+  const lastSpawnedTetrimino = useRef<Tetrimino>();
   const [isInitialized, setInitialized] = useState(false);
   const [field, setField] = useState(initialField);
   const [nextBlocks, setNextBlocks] = useState<Tetrimino[]>([]);
+  const [fieldBlocks, setFieldBlocks] = useState<Tetrimino[]>([]);
 
   const generateRandomBlock = () => {
     const shape = Math.floor(Math.random() * 7);
@@ -64,16 +66,24 @@ function Tetris() {
   const spawnBlock = () => {
     setNextBlocks((prevValue) => {
       const tempBlocks = [...prevValue];
-      tempBlocks.shift();
-      return tempBlocks;
-    });
-    const nextBlock = generateRandomBlock();
-    setNextBlocks((prevValue) => {
-      const tempBlocks = [...prevValue];
+      const spawnedBlock = tempBlocks.shift();
+      const nextBlock = generateRandomBlock();
       tempBlocks.push(nextBlock);
+      if (spawnedBlock && lastSpawnedTetrimino.current !== spawnedBlock) {
+        spawnedBlock.x = 4;
+        spawnedBlock.y = 0;
+        lastSpawnedTetrimino.current = spawnedBlock;
+        setFieldBlocks((prevValue) => {
+          const tempBlocks = [...prevValue];
+          tempBlocks.push(spawnedBlock);
+          return tempBlocks;
+        });
+      }
       return tempBlocks;
     });
   };
+
+  const handleFieldChange = (spawnedBlock: Tetrimino) => {};
 
   const handleControls = (e: KeyboardEvent) => {
     switch (e.key) {
@@ -81,8 +91,41 @@ function Tetris() {
         spawnBlock();
         break;
       }
+      case "w": {
+        console.log("HERE");
+        const tetrimino = lastSpawnedTetrimino.current?.rotateRight();
+        console.log(tetrimino);
+        if (tetrimino) {
+          setFieldBlocks((prevValue) => {
+            const tempBlocks = [...prevValue];
+            tempBlocks.pop();
+            tempBlocks.push(tetrimino);
+            console.log(tempBlocks);
+            return tempBlocks;
+          });
+        }
+        break;
+      }
     }
   };
+
+  useEffect(() => {
+    if (fieldBlocks?.length > 0) {
+      setField((prevValue) => {
+        const tempField = [...prevValue];
+        fieldBlocks.forEach((block) => {
+          block.blocks.forEach((row, i) => {
+            row.forEach((cell, j) => {
+              if (cell === 1) {
+                tempField[block.x + i][block.y + j] = block.color;
+              }
+            });
+          });
+        });
+        return tempField;
+      });
+    }
+  }, [fieldBlocks]);
 
   useEffect(() => {
     if (!isInitialized) {
@@ -96,10 +139,6 @@ function Tetris() {
     setInitialized(true);
     generateNextBlocks();
   }, []);
-
-  useEffect(() => {
-    console.log(nextBlocks);
-  }, [nextBlocks]);
 
   return (
     <Stage width={900} height={900}>

@@ -18,10 +18,13 @@ function Playfield({ field }: { field: any }) {
     }
   };
 
-  const draw = useCallback((graphics: any) => {
-    graphics.clear();
-    renderGrid(graphics, 200, 50, 40, 40);
-  }, []);
+  const draw = useCallback(
+    (graphics: any) => {
+      graphics.clear();
+      renderGrid(graphics, 200, 50, 40, 40);
+    },
+    [field]
+  );
 
   return (
     <Container>

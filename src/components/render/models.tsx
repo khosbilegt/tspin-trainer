@@ -3,6 +3,8 @@ interface Tetrimino {
   x: number;
   y: number;
   blocks: number[][];
+  rotateLeft: () => void;
+  rotateRight: () => void;
 }
 
 class JBlock implements Tetrimino {
@@ -14,6 +16,18 @@ class JBlock implements Tetrimino {
   ];
 
   constructor(public x: number, public y: number) {}
+  rotateLeft() {
+    const newBlocks = this.blocks.map((_, i) =>
+      this.blocks.map((row) => row[i]).reverse()
+    );
+    this.blocks = newBlocks;
+  }
+  rotateRight() {
+    const newBlocks = this.blocks
+      .map((_, i) => this.blocks.map((row) => row[i]))
+      .reverse();
+    this.blocks = newBlocks;
+  }
 }
 
 class LBlock implements Tetrimino {
@@ -25,6 +39,18 @@ class LBlock implements Tetrimino {
   ];
 
   constructor(public x: number, public y: number) {}
+  rotateLeft() {
+    const newBlocks = this.blocks
+      .map((_, i) => this.blocks.map((row) => row[i]))
+      .reverse();
+    this.blocks = newBlocks;
+  }
+  rotateRight() {
+    const newBlocks = this.blocks.map((_, i) =>
+      this.blocks.map((row) => row[i]).reverse()
+    );
+    this.blocks = newBlocks;
+  }
 }
 
 class OBlock implements Tetrimino {
@@ -35,6 +61,8 @@ class OBlock implements Tetrimino {
   ];
 
   constructor(public x: number, public y: number) {}
+  rotateLeft = () => {};
+  rotateRight = () => {};
 }
 
 class SBlock implements Tetrimino {
@@ -46,6 +74,18 @@ class SBlock implements Tetrimino {
   ];
 
   constructor(public x: number, public y: number) {}
+  rotateLeft() {
+    const newBlocks = this.blocks
+      .map((_, i) => this.blocks.map((row) => row[i]))
+      .reverse();
+    this.blocks = newBlocks;
+  }
+  rotateRight() {
+    const newBlocks = this.blocks.map((_, i) =>
+      this.blocks.map((row) => row[i]).reverse()
+    );
+    this.blocks = newBlocks;
+  }
 }
 
 class TBlock implements Tetrimino {
@@ -57,6 +97,18 @@ class TBlock implements Tetrimino {
   ];
 
   constructor(public x: number, public y: number) {}
+  rotateLeft() {
+    const newBlocks = this.blocks
+      .map((_, i) => this.blocks.map((row) => row[i]))
+      .reverse();
+    this.blocks = newBlocks;
+  }
+  rotateRight() {
+    const newBlocks = this.blocks.map((_, i) =>
+      this.blocks.map((row) => row[i]).reverse()
+    );
+    this.blocks = newBlocks;
+  }
 }
 
 class ZBlock implements Tetrimino {
@@ -68,6 +120,18 @@ class ZBlock implements Tetrimino {
   ];
 
   constructor(public x: number, public y: number) {}
+  rotateLeft() {
+    const newBlocks = this.blocks
+      .map((_, i) => this.blocks.map((row) => row[i]))
+      .reverse();
+    this.blocks = newBlocks;
+  }
+  rotateRight() {
+    const newBlocks = this.blocks.map((_, i) =>
+      this.blocks.map((row) => row[i]).reverse()
+    );
+    this.blocks = newBlocks;
+  }
 }
 
 class IBlock implements Tetrimino {
@@ -80,6 +144,18 @@ class IBlock implements Tetrimino {
   ];
 
   constructor(public x: number, public y: number) {}
+  rotateLeft() {
+    const newBlocks = this.blocks
+      .map((_, i) => this.blocks.map((row) => row[i]))
+      .reverse();
+    this.blocks = newBlocks;
+  }
+  rotateRight() {
+    const newBlocks = this.blocks.map((_, i) =>
+      this.blocks.map((row) => row[i]).reverse()
+    );
+    this.blocks = newBlocks;
+  }
 }
 
 export type { Tetrimino };
