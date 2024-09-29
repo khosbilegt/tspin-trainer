@@ -1,5 +1,4 @@
-import { Container, Graphics, Text } from "@pixi/react";
-import { TextStyle } from "pixi.js";
+import { Container, Graphics } from "@pixi/react";
 import { useCallback } from "react";
 
 function Playfield({ field }: { field: any }) {
