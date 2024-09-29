@@ -6,7 +6,7 @@ function Tetris() {
   const [field, setField] = useState([]);
 
   return (
-    <Stage width={800} height={800}>
+    <Stage width={800} height={900}>
       <Playfield />
     </Stage>
   );
