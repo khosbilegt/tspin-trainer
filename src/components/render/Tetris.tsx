@@ -133,7 +133,7 @@ function Tetris() {
         if (!prevValue) {
           document.addEventListener("keydown", (e) => handleControls(e));
         }
-        return true;
+         return true;
       });
     }
     setInitialized(true);
@@ -141,7 +141,7 @@ function Tetris() {
   }, []);
 
   return (
-    <Stage width={900} height={900}>
+    <Stage width={900} height={800}>
       <Playfield field={field} />
       <HoldZone block={new LBlock(0, 0)} />
       <NextZone blocks={nextBlocks} />

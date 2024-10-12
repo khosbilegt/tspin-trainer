@@ -1,7 +1,7 @@
 import Tetris from "../components/render/Tetris";
 
 function RenderLayout() {
-  return <Tetris />;
+  return <Tetris />
 }
 
 export default RenderLayout;
